@@ -1,4 +1,5 @@
 <div class = "column is-half">
+<% if user_signed_in? %>
   <article class = "media box">
     <figure class = "media-left">
       <p class = "image is-64x64">
@@ -9,20 +10,23 @@
         <%= render 'tweeets/form' %>
     </div>
   </article>
-  
+<% end %>
 
-<% @tweeets.each  do |tweeet|%>
+<% @tweeets.each  do | tweeet |%>
   <div class = "box" >
     <article class = "media">
       <div class = "media-left">
         <figure class = "image is-64x64">
-         <img src="https://bulma.io/images/placeholders/64x64.png">
+        <%=  gravatar_image_tag(tweeet.user.email, size: 64, alt: tweeet.user.email) %>
+         
         </figure>
       </div>
+
+
       <div class = "media-content">
         <div class = "content">
-          <strong>Lazy Bird</strong><br>
-          <small>@webcrunch</small><br>
+          <strong>tweeet.user.email</strong><br>
+          <small><%= tweeet.user.email%></small><br>
           <p><%= tweeet.tweeet%> </p>
         </div>
         <nav class = "level">
@@ -33,7 +37,7 @@
             <%= link_to edit_tweeet_path(tweeet), class: "level-item" do %>
               <span class = "icon"> <i class = "fa fa-pencil" aria-hidden = "true"> </i> </span>
             <% end %>
-            <%= link_to tweeet , method: :delete, data: {confirm: "Are u Sure?"} do %>
+            <%= link_to tweeet, method: :delete, data: {confirm: "Are u Sure?"} do %>
               <span class = "icon"><i class = "fa fa-trash-o" aria-hidden = "true"> </i> </span>
             <% end %>
           </div>

@@ -12,15 +12,26 @@
     <div id = "navbarExample" class = "navbar-menu">
          <div class = "navbar-end">
              <div class = "field is-grouped">
-               <p class = "control">
-                 <%= link_to "New tweeet" , new_tweeet_path , class: "button is-info is-inverted" %>
-               </p>
-               <p class = "control">
-                 <%= link_to "Sign-Up" , sign_up_path , class: "button is-info is-inverted" %>
-               </p>
               <p class = "control">
-                 <%= link_to "Log-In" , sign_in_path , class: "button is-info is-inverted" %>
-                </p>
+                 <%= link_to "New tweeet" , root_path , class: "button is-info is-inverted" %>
+              </p>
+              <% if user_signed_in? %>
+              <p class = "control">
+              
+                <%= link_to current_user.email,edit_user_registration_path ,class: "button is-info is-inverted" %>
+              </p>
+                <p class = "control">
+                <%= link_to "Logout" , destroy_user_session_path, method: :delete, class: "button is-info is-inverted" %>
+              </p>
+             
+              <% else %>
+              <p class = "control">
+                 <%= link_to "Sign Up" , new_user_registration_path , class: "button is-info is-inverted" %>
+              </p>
+              <p class = "control">
+                 <%= link_to "Log-In" ,new_user_session_path , class: "button is-info is-inverted" %>
+              </p>
+            <% end %>
 
         </div>
       </div>
