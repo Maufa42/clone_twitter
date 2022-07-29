@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_26_101835) do
+ActiveRecord::Schema.define(version: 2022_07_29_100629) do
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "tweeet_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "tweeets", force: :cascade do |t|
     t.text "tweeet"
@@ -27,6 +34,8 @@ ActiveRecord::Schema.define(version: 2022_07_26_101835) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.string "user_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

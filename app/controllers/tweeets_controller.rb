@@ -3,9 +3,6 @@ class TweeetsController < ApplicationController
   before_action :authenticate_user!, except: [:index,:show]
   # GET /tweeets or /tweeets.json
   def index
-    flash.now[:notice] = "Logged in Successfully"
-    flash.now[:alert] = "Wrong Email Credentials"
-
     @tweeets = Tweeet.all.order("created_at DESC")
     @tweeet = Tweeet.new
   end

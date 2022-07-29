@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controller=>{applications: "applications"}
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: "tweeets#index"
-  resources :tweeets
+  resources :tweeets do
+  post 'likes/create',to: 'likes#create'
+ delete 'likes/delete',to: "likes#destroy"
+  end
   get "tweeet", to: "tweeets#index"
 
 

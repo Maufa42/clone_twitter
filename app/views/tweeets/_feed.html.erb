@@ -17,7 +17,7 @@
     <article class = "media">
       <div class = "media-left">
         <figure class = "image is-64x64">
-        <%=  gravatar_image_tag(tweeet.user.email, size: 64, alt: tweeet.user.email) %>
+        <%=  gravatar_image_tag(tweeet.user.name, size: 64, alt: tweeet.user.user_name) %>
          
         </figure>
       </div>
@@ -25,21 +25,26 @@
 
       <div class = "media-content">
         <div class = "content">
-          <strong>tweeet.user.email</strong><br>
-          <small><%= tweeet.user.email%></small><br>
+          <strong><%= tweeet.user.name %></strong><br>
+          <small><%= tweeet.user.user_name%></small><br>
           <p><%= tweeet.tweeet%> </p>
         </div>
         <nav class = "level">
           <div class = "level-left is-mobile">
-            <%= link_to tweeet, class: "level-item" do%>
-              <span class = "icon"><i class = "fa fa-link" aria-hidden = "true"></i></span>
-            <% end %>
-            <%= link_to edit_tweeet_path(tweeet), class: "level-item" do %>
-              <span class = "icon"> <i class = "fa fa-pencil" aria-hidden = "true"> </i> </span>
-            <% end %>
-            <%= link_to tweeet, method: :delete, data: {confirm: "Are u Sure?"} do %>
-              <span class = "icon"><i class = "fa fa-trash-o" aria-hidden = "true"> </i> </span>
-            <% end %>
+              
+                <% if user_signed_in? && current_user.id == tweeet.user_id %>
+                <%= link_to edit_tweeet_path(tweeet), class: "level-item" do %>
+                  <span class = "icon"> <i class = "fa fa-pencil" aria-hidden = "true"> </i> </span>
+                <% end %>
+                <%= link_to tweeet, method: :delete, data: {confirm: "Are u Sure?"} do %>
+                  <span class = "icon"><i class = "fa fa-trash-o" aria-hidden = "true"> </i> </span>
+                <% end %>
+                <% else %>
+                  <%= link_to tweeet, class: "level-item" do%>
+                  <span class = "icon"><i class = "fa fa-link" aria-hidden = "true"></i></span>
+                <% end %>
+                <% end %>
+
           </div>
         </nav>
       </div>
