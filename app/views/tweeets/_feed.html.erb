@@ -41,7 +41,15 @@
                                               <%= link_to tweeet, class: "level-item" do%>
                                                       <span class = "icon"><i class = "fa fa-link" aria-hidden = "true"></i></span>
                                               <% end %>
-                                            
+                                            <%# Like Logic Not Working Correctly %>
+                                          <% if user_signed_in? %>
+                                          <% like = current_user.likes.find_by(tweeet: @tweeet)%>
+                                            <% if tweeet.like.nil? %>
+                                          <%= link_to "Like" %>
+                                          <% else %>
+                                          <%= link_to "Unlike"%>
+                                          <%= tweeet.likes.count%>
+                                          <% end %>  
                                     </div>
                                   </nav>
                     </div>
