@@ -1,6 +1,7 @@
 class TweeetsController < ApplicationController
   before_action :set_tweeet, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: [:index,:show]
+  before_action :set_like
   # GET /tweeets or /tweeets.json
   def index
     @tweeets = Tweeet.all.order("created_at DESC")
@@ -63,7 +64,9 @@ class TweeetsController < ApplicationController
     def set_tweeet
       @tweeet = Tweeet.find(params[:id])
     end
-
+    def set_like
+      @like = Like.find_by(params[:like_id])
+    end
     # Only allow a list of trusted parameters through.
     def tweeet_params
       params.require(:tweeet).permit(:tweeet)

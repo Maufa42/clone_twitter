@@ -1,29 +1,33 @@
 class LikesController < ApplicationController
 
-  def create
-    @like = current_user.likes.new(like_params)
-    if @like.save?
-      redirect @like.post_id
+    before_action :set_tweeet
+
+  def like_toggle
+    if already_like
+      @like = tweeet.likes.find(params[:id])
+      @like.destroy
+      respond_to do |format| 
+        format.html
+        format.js
+    end
     else
-      flash[:alert] = "There is Problem with likes"
+      @like = Like.create(tweeet_id: params[:tweeet_id] ,user_id: current_user.id)
+      if  @like.save
+        respond_to do |format|
+       format.js
       end
+      end
+    end
 
-  end
-
-
-  def destroy
-    @like = current_user.likes.find(params[:id])
-    post = @like.post
-    @like.destroy
-
-    redirect_to post
   end
 
 
   private 
-
-  def like_params
-    params.require(:like).permit(:post_id)
+  def set_tweeet
+    @tweeet = Tweeet.find(params[:tweeet_id])
+  end
+   def already_like
+    Like.where(user_id:current_user.id,tweeet_id:params[:tweeet_id]).exists? 
   end
 
 end

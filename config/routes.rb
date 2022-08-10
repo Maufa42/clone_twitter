@@ -3,8 +3,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: "tweeets#index"
   resources :tweeets do
-  post 'likes/create',to: 'likes#create'
- delete 'likes/delete',to: "likes#destroy"
+get "toggle" ,to: "likes#like_toggle"
   end
   get "tweeet", to: "tweeets#index"
 
